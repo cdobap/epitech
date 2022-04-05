@@ -1,0 +1,72 @@
+     const popupmovie = data.map(movies => 
+            {
+                return `
+                
+                    <div>
+                        ${movies.title}   
+                    </div>
+                    <div >  
+                        <button id="close-popup" type="button" class="btn btn-danger">CLOSE</button> 
+                    </div>
+                        Synopsis
+                        ${movies.summary.toUpperCase()}
+                    <div>        
+                    </div>    
+                    <div>   
+                        Genre     
+                    </div>
+                    <div>  
+                        Date of release      
+                    </div>
+                    <div>        
+                        Producer
+                    </div>
+
+                
+                `;
+                
+            })
+            .join("");
+
+            document.querySelector('#popup')
+            .insertAdjacentHTML('afterbegin', popupmovie);
+            
+
+
+
+
+
+
+             $("#close-popup").click(function(event)
+        {
+            $("#popup").hide();       
+        }
+        )
+         
+          
+
+
+
+
+
+
+
+
+
+            <div>
+    </div>
+    <div >  
+        <button id="close-popup" type="button" class="btn btn-danger">CLOSE</button> 
+    </div>
+        Synopsis
+    <div>        
+    </div>    
+    <div>   
+        Genre     
+    </div>
+    <div>  
+        Date of release      
+    </div>
+    <div>        
+        Producer
+    </div>

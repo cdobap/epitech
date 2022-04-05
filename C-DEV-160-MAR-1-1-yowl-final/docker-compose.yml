@@ -1,0 +1,31 @@
+services:
+    laravel-app:
+        build: ./laravel_api
+        restart: always
+        volumes:
+            - type: bind
+              source: ./laravel_api
+              target: /app
+        ports:
+            - "8181:8181"
+        depends_on:
+            - db
+    db:
+        image: mariadb
+        restart: always
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: yowl
+    vue-app:
+        build: ./FiveStarz
+        restart: always
+        volumes:
+            - type: bind
+              source: ./FiveStarz
+              target: /app
+        ports:
+            - "8282:8080"
+        depends_on:
+            - laravel-app

@@ -1,0 +1,1 @@
+SELECT floor AS 'Floor number', SUM(seats) AS 'Total number of seats', COUNT(room_number) FROM rooms GROUP BY floor;

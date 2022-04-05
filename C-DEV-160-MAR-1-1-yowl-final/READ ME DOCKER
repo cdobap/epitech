@@ -1,0 +1,20 @@
+DANS RACINE BRANCH
+
+        docker-compose build
+
+        docker-compose up
+_____________________________________
+
+VUE JS
+
+        http://localhost:8282/
+
+
+_____________________________________
+
+POUR MIGRER DB
+
+        docker-compose exec laravel-app bash
+
+            php artisan migrate
+

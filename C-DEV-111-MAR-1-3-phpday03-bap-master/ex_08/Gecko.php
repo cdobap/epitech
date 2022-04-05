@@ -1,0 +1,313 @@
+<?php
+
+class Gecko
+{
+    private $name;
+    private $Age;
+    private $energy = 100;
+    private $tooDrunk = false;
+
+    public function __construct($name = null, $age = null)
+    {
+        if ($name != null)
+        {
+        $this->name =$name;
+        echo "Hello " . $name . " !\n";
+        }
+        else
+        {
+            echo "Hello !\n";
+        }
+        $this->setAge($age);
+    }
+    public function __destruct()
+    {
+        if ($this->name != null)
+        {
+            echo "Bye " .$this->getName() ." !\n";
+        }
+        else 
+        {
+            echo "Bye !\n";
+        }
+    }
+
+    /*
+    getter
+    */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getAge()
+    {
+        return $this->Age;
+    }
+
+    public function getEnergy()
+    {
+        return $this->energy;
+    }
+    public function getTooDrunk()
+    {
+        return $this->tooDrunk;
+    }
+    /*
+    setter
+    */
+    public function setAge($age)
+    {
+        $this->Age = $age;
+    }
+
+    public function setEnergy($Energy)
+    {
+      
+        $this->energy = $Energy;
+
+
+        if ($this->energy > 100)
+        {
+            $this->energy = 100;
+        }
+        else if ($this->energy < 0)
+        {
+            $this->energy = 0;
+        }
+        
+    }
+    public function gainEnergy($i)
+    {
+        $this->energy += $i;
+
+        if ($this->energy > 100)
+        {
+            $this->setEnergy(100);
+        }
+    }
+    public function loseEnergy($i)
+    {
+        $this->energy -= $i;
+
+        if ($this->energy < 0)
+        {
+            $this->setEnergy(0);
+        }
+    }
+    public function setTooDrunk($bool)
+    {
+        $this->tooDrunk = $bool;
+    }
+    public function takeANap()
+    {
+        $this->gainEnergy(50);
+        $this->setTooDrunk(false);
+    }
+
+
+    /*
+    */
+    public function checkIfTooDrunk()
+    {
+        if ($this->tooDrunk == true)
+        {
+            $dice = rand(1, 6);
+            if ($dice == 1)
+            {
+                $this->sayTooDrunkForThat();     
+                return 1;           
+            } 
+        }
+    }
+    public function status()
+    {
+        switch ($this->Age)
+        {
+            case 0:
+                echo "Unborn Gecko\n";
+                break;
+            case 1:
+            case 2:
+                echo "Baby Gecko\n";
+                break;
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+                echo "Adult Gecko\n";
+                break;
+            case 11:
+            case 12:
+            case 13:
+                echo "Old Gecko\n";
+                break;
+            default:
+                echo "Impossible Gecko\n";
+            
+        }
+    }
+
+    public function hello($speech)
+    {
+        if ($this->checkIfTooDrunk() == null);
+        {
+            if (is_string($speech))
+            {
+                if ($this->name != null)
+                {
+                echo "Hello " . $speech . ", I'm " . $this->getName() . "!\n";
+                }
+                else
+                {
+                    echo "Hello " .$speech ."!\n";
+                }
+            }
+            else if (is_int($speech))
+            {
+                for ($i = 0; $i < $speech; $i++)
+                {
+                    if ($this->name != null)
+                    {
+                    echo "Hello, I'm " .$this->getName() ."!\n";
+                    }
+                    else
+                    {
+                    echo "Hello !\n";
+                    }
+                }
+            }
+    }
+    }
+
+    public function eat($string)
+    {
+        if ($this->checkIfTooDrunk() == null);
+        {
+            $meat = "Meat";
+            $vegetable = "Vegetable";
+            if (strcasecmp($string, $meat) == 0)
+            {
+                $this->gainEnergy(10);
+                echo "Yummy!\n";
+            }
+            else if (strcasecmp($string, $vegetable) == 0)
+            {
+                $this->loseEnergy(10);
+                echo "Erk!\n";
+            }
+            else
+            {
+                echo "I can't eat this.\n";
+            }
+            return;
+        }
+    }
+
+    public function work()
+    {
+        if ($this->checkIfTooDrunk() == null);
+        {
+            if ($this->getEnergy() >= 25)
+            {
+                echo "I'm working T.T\n";
+                $this->loseEnergy(9);
+            }
+            else
+            {
+                echo "Heyyy... I'm too sleepy, better take a nap!\n";
+                $this->takeANap();
+            }
+        }
+    }
+
+    public function fraternize($aGecko)
+    {
+        if ($this->checkIfTooDrunk() == null);
+        {
+            if ($aGecko instanceof Gecko)
+            {
+                $this->goDrink($aGecko);
+            }
+            else if ($aGecko instanceof Snake )
+            {
+                $this->fraternizeWithASnake();
+            }
+            else 
+            {
+                $this->sayNoWay();
+            }
+        }
+    }
+    
+    public function fraternizeWithASnake()
+    {        
+        if($this->energy >= 10)
+        {
+            $this->setEnergy(0);
+            echo "LET'S RUN AWAY !!!\n";
+        }
+        else
+        {
+            echo "...\n";
+        }
+    }
+    public function goDrink($withGecko)
+    {
+        if ($this->energy >= 30 && $withGecko->energy >= 30)
+        {
+            $this->loseEnergy(30);
+            $withGecko->loseEnergy(30);
+            $this->sayImGoingToDrink($withGecko);
+            $withGecko->sayImGoingToDrink($this);
+            $this->setTooDrunk(true);
+            $withGecko->setTooDrunk(true);
+        }
+        else if ($this->energy < 30 && $withGecko->energy >= 30)
+        {
+            $this->sayImTooTiredForGoingOut($withGecko);
+            $withGecko->sayOhThatsTooBad();
+        }
+        else if ($withGecko->energy < 30 && $this->energy >= 30)
+        {
+            $withGecko->sayImTooTiredForGoingOut($this);
+            $this->sayOhThatsTooBad();
+        }
+        else if ($this->energy < 30 && $withGecko->energy < 30)
+        {
+            $this->sayNotToday();
+            $withGecko->sayNotToday();
+        }
+    }   
+    
+    public function sayImGoingToDrink($withGecko)
+    {
+        echo "I'm going to drink with " . $withGecko->name ."!\n";
+    }
+    
+    public function sayImTooTiredForGoingOut($withGecko)
+    {
+        echo "Sorry " . $withGecko->name .", I'm too tired for going out tonight...\n";
+    }
+    public function sayOhThatsTooBad()
+    {
+        echo "Oh ! That's too bad, another time then !\n";
+    }
+    public function sayNotToday()
+    {
+        echo "Not today !\n";
+    }
+    public function sayNoWay()
+    {
+        echo "No way.\n";
+    }
+    public function sayTooDrunkForThat()
+    {
+        echo "I'm too drunk for that... hic !\n";
+    }
+}
+

@@ -1,0 +1,7 @@
+FROM node:lts-alpine
+
+EXPOSE 8080
+
+WORKDIR /app
+
+CMD yarn install; yarn serve
